@@ -1,0 +1,36 @@
+{
+    "id": "nodebb-plugin-wikilink",
+    "name": "Wiki Link",
+    "description": "A NodeBB plugin to link [[text]] with the the appropriate wiki-system.",
+    "url": "https://github.com/mudkipme/nodebb-plugin-wikilink",
+    "library": "./index.js",
+    "acpScripts": [
+        "public/js/admin.js"
+    ],
+    "staticDirs": {
+        "js": "public/js"
+    },
+    "templates": "./public/templates",
+    "hooks": [
+        {
+            "hook": "static:app.load",
+            "method": "onLoad"
+        },
+        {
+            "hook": "filter:parse.post",
+            "method": "parsePost"
+        },
+        {
+            "hook": "filter:parse.signature",
+            "method": "parseSignature"
+        },
+        {
+            "hook": "filter:parse.aboutme",
+            "method": "parseAboutMe"
+        },
+        {
+            "hook": "filter:admin.header.build",
+            "method": "addAdminMenu"
+        }
+    ]
+}

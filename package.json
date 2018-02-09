@@ -1,0 +1,27 @@
+{
+  "name": "nodebb-plugin-wikilink",
+  "version": "0.1.0",
+  "description": "A NodeBB plugin to link [[text]] with the the appropriate wiki-system.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mudkipme/nodebb-plugin-wikilink.git"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "wiki"
+  ],
+  "author": "Mudkip",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mudkipme/nodebb-plugin-wikilink/issues"
+  },
+  "homepage": "https://github.com/mudkipme/nodebb-plugin-wikilink#readme",
+  "nbbpm": {
+    "compatibility": "^1.6.0"
+  }
+}
