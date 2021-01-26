@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-wikilink",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A NodeBB plugin to link [[text]] with the the appropriate wiki-system.",
   "main": "index.js",
   "scripts": {

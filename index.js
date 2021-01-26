@@ -1,12 +1,12 @@
-const meta = module.parent.require('./meta');
-const utils = module.parent.require('./utils');
+const meta = require.main.require('./src/meta');
+const utils = require.main.require('./src/utils');
 
 const WikiLink = {
     config: {
         prefix: 'https://en.wikipedia.org/wiki/'
     },
 
-    onLoad({ router, middleware }, callback) {
+    async onLoad({ router, middleware }) {
         function render(req, res) {
             res.render('admin/plugins/wikilink');
         }
@@ -14,12 +14,9 @@ const WikiLink = {
         router.get('/admin/plugins/wikilink', middleware.admin.buildHeader, render);
         router.get('/api/admin/plugins/wikilink', render);
 
-        meta.settings.get('wikilink', function (err, options) {
-            if (!err) {
-                WikiLink.config = Object.assign({}, WikiLink.config, options);
-            }
-        });
-        return setImmediate(callback, null, { router, middleware });
+        const options = await meta.settings.get('wikilink');
+        WikiLink.config = Object.assign({}, WikiLink.config, options);
+        return { router, middleware };
     },
 
     parse(text) {
@@ -40,34 +37,34 @@ const WikiLink = {
         return text;
     },
 
-    parsePost(data, callback) {
+    async parsePost(data) {
         if (data && data.postData && data.postData.content) {
             data.postData.content = WikiLink.parse(data.postData.content);
         }
-        return setImmediate(callback, null, data);
+        return data;
     },
 
-    parseSignature(data, callback) {
+    async parseSignature(data) {
         if (data && data.userData && data.userData.signature) {
             data.userData.signature = WikiLink.parse(data.userData.signature);
         }
-        return setImmediate(callback, null, data);
+        return data;
     },
 
-    parseAboutMe(aboutme, callback) {
+    async parseAboutMe(aboutme) {
         if (aboutme) {
             aboutme = WikiLink.parse(aboutme);
         }
-        return setImmediate(callback, null, aboutme);
+        return aboutme;
     },
 
-    addAdminMenu(custom_header, callback) {
+    async addAdminMenu(custom_header) {
         custom_header.plugins.push({
             route: '/plugins/wikilink',
             icon: 'fa-wikipedia-w',
             name: 'Wiki Link',
         });
-        return setImmediate(callback, null, custom_header);
+        return custom_header;
     }
 };
 
